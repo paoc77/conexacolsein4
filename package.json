@@ -63,7 +63,10 @@
       "cordova-plugin-ionic": {
         "APP_ID": "6a5d7a51",
         "CHANNEL_NAME": "Production",
-        "UPDATE_METHOD": "auto"
+        "UPDATE_METHOD": "auto",
+        "WARN_DEBUG": "false",
+        "UPDATE_API": "https://api.ionicjs.com",
+        "MAX_STORE": "2"
       },
       "cordova-plugin-geolocation": {
         "GEOLOCATION_USAGE_DESCRIPTION": "To locate you"
