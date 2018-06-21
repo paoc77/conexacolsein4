@@ -62,7 +62,7 @@
     "plugins": {
       "cordova-plugin-ionic": {
         "APP_ID": "6a5d7a51",
-        "CHANNEL_NAME": "Master",
+        "CHANNEL_NAME": "Production",
         "UPDATE_METHOD": "auto"
       },
       "cordova-plugin-geolocation": {
