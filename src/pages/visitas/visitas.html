@@ -1,0 +1,108 @@
+<ion-header>
+    <ion-navbar>
+        <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+        <ion-title>Registrar Visitas</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<p>{{visitaTelefonica}}</p>
+<ion-content>
+    <ion-card>
+        <ion-card-header>
+            Por favor seleccione el tipo de visita
+        </ion-card-header>
+        <ion-card-content>
+
+            <ion-list radio-group [(ngModel)]="tipoVisita">
+                <ion-item>
+                    <ion-label>Presencial</ion-label>
+                    <ion-radio value="P" (click)="cambiarTipoVisita()"></ion-radio>
+                </ion-item>
+                <ion-item>
+                    <ion-label>Telefónica</ion-label>
+                    <ion-radio value="T" (click)="cambiarTipoVisita()"></ion-radio>
+                </ion-item>
+            </ion-list>
+        </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+        <ion-card-header>
+            Por favor seleccione el motivo de la visita
+        </ion-card-header>
+        <ion-card-content>
+            <ion-list radio-group [(ngModel)]="motivoVisita">
+                <ion-item>
+                    <ion-label>Comercial</ion-label>
+                    <ion-radio value="Comercial"></ion-radio>
+                </ion-item>
+                <ion-item>
+                    <ion-label>Otros</ion-label>
+                    <ion-radio value="Otro"></ion-radio>
+                </ion-item>
+            </ion-list>
+        </ion-card-content>
+    </ion-card>
+
+    <ion-card *ngIf="tipoVisita=='T'">
+        <ion-card-content>
+            <ion-card-header>
+                Visita Telefónica
+            </ion-card-header>
+            <ion-list>
+                <ion-item>
+                    <ion-label>Nombre:</ion-label>
+                    <ion-input type="text" [(ngModel)]="nombreBuscar"></ion-input>
+                </ion-item>
+
+            </ion-list>
+            <button ion-button icon-left full (click)="buscarEmpresas()">
+                <ion-icon name="search"></ion-icon>
+                Buscar
+            </button>
+
+        </ion-card-content>
+    </ion-card>
+    <ion-card *ngIf="empresasL.length>0 && tipoVisita=='T'">
+        <ion-card-content>
+            <ion-card-header>
+                Favor Seleccione la empresa
+            </ion-card-header>
+            <ion-list radio-group style="height:200px; overflow-y:auto" [(ngModel)]="empresaId">
+                <ion-list-header>
+                    Empresas Encontradas
+                </ion-list-header>
+                <ion-item *ngFor="let empresa of empresasL">
+                    <ion-label>{{ empresa.ciudad }} - {{ empresa.nombre }}</ion-label>
+                    <ion-radio checked="false" value="{{empresa.id}}"></ion-radio>
+                </ion-item>
+            </ion-list>
+
+            <button ion-button icon-left full (click)="guardarVisita()">
+                <ion-icon name="save"></ion-icon>
+                Registrar Visita
+            </button>
+        </ion-card-content>
+    </ion-card>
+    <ion-card *ngIf="tipoVisita=='P'">
+        <ion-card-content>
+            <ion-card-header>
+                Se han detectado las siguientes empresas
+            </ion-card-header>
+            <ion-list radio-group style="height:200px; overflow-y:auto" [(ngModel)]="empresaId">
+                <ion-item *ngFor="let empresa of empresasL">
+                    <ion-label>{{ empresa.ciudad }} - {{ empresa.nombre }}</ion-label>
+                    <ion-radio checked="false" value="{{empresa.id}}"></ion-radio>
+                </ion-item>
+            </ion-list>
+
+            <button ion-button icon-left full (click)="guardarVisita()">
+                <ion-icon name="save"></ion-icon>
+                Registrar Visita
+            </button>
+        </ion-card-content>
+    </ion-card>
+
+</ion-content>

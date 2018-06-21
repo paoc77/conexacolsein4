@@ -1,0 +1,171 @@
+<ion-header>
+    <ion-navbar>
+        <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+        <ion-title>Base Instalada</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <ion-card>
+        <ion-card-content>
+            <ion-card-header>
+                Buscar Empresas
+            </ion-card-header>
+            <ion-list>
+                <ion-item>
+                    <ion-label>Nombre:</ion-label>
+                    <ion-input type="text" [(ngModel)]="nombreBuscar"></ion-input>
+                </ion-item>
+            </ion-list>
+            <button ion-button icon-left full (click)="buscarEmpresas()">
+                <ion-icon name="search"></ion-icon>
+                Buscar
+            </button>
+
+        </ion-card-content>
+    </ion-card>
+    <ion-card *ngIf="empresasL.length>0">
+        <ion-card-content>
+            <ion-card-header>
+                Favor Seleccione la empresa
+            </ion-card-header>
+            <ion-list radio-group style="height:200px; overflow-y:auto">
+                <ion-list-header>
+                    Empresas Encontradas
+                </ion-list-header>
+                <ion-item *ngFor="let empresa of empresasL">
+                    <ion-label>{{ empresa.ciudad }} - {{ empresa.nombre }} </ion-label>
+                    <ion-radio checked="false" value="{{empresa.id}}" (click)="seleccionarEmpresas(empresa.id)"></ion-radio>
+                </ion-item>
+            </ion-list>
+        </ion-card-content>
+    </ion-card>
+    <ion-card *ngIf="empresa!=null">
+        <ion-card-content>
+            <ion-card-header>
+                Datos De La Empresa
+            </ion-card-header>
+
+            <ion-item>
+                <ion-label floating>Nombre</ion-label>
+                <ion-input type="text" [(ngModel)]="empresa.nombre" name="nombre" [readonly]="true"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label floating>Nit</ion-label>
+                <ion-input type="text" [(ngModel)]="empresa.nit" name="nit" [readonly]="true"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label floating>Ciudad</ion-label>
+                <ion-input type="text" [(ngModel)]="empresa.ciudad" name="ciudad" [readonly]="true"></ion-input>
+            </ion-item>
+
+            <ion-card>
+                <ion-card-header>
+                    Favor seleccione la linea y familia
+                </ion-card-header>
+                <ion-card-content>
+                    <ion-item>
+                        <ion-label>Linea</ion-label>
+                        <ion-select [(ngModel)]="lineaid" (ngModelChange)="cambiarLinea($event)">
+                            <ion-option *ngFor="let linea of lineas" value="{{linea.id}}">{{linea.nombre}}</ion-option>
+                        </ion-select>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label>Familia</ion-label>
+                        <ion-select [(ngModel)]="familiaid" (ngModelChange)="cambiarFamilia($event)">
+                            <ion-option *ngFor="let familia of familias" value="{{familia.id}}">{{familia.nombre}} {{familia.moneda.codigo}}</ion-option>
+                        </ion-select>
+                    </ion-item>
+                </ion-card-content>
+            </ion-card>
+
+            <ion-card>
+                <ion-card-header>
+                    Base Instalada
+                </ion-card-header>
+                <ion-card-content>
+                    <ion-list>
+                        <ion-item>
+                            <ion-label>Estado:</ion-label>
+                            <ion-input type="text" [(ngModel)]="baseinstalada.estadoBasePotencial.nombre" name="EstadoBasePotencial"></ion-input>
+                        </ion-item>
+                        <ion-item>
+                            <ion-label>Cantidad:</ion-label>
+                            <ion-input type="text" [(ngModel)]="baseinstalada.cantidad"></ion-input>
+                        </ion-item>
+                        <ion-item>
+                            <ion-label>Valor Unitario:</ion-label>
+                            <ion-input type="text" [(ngModel)]="baseinstalada.valorunitario"></ion-input>
+                        </ion-item>
+                        <ion-item>
+                            <ion-label>Valor Total:</ion-label>
+                            <ion-input type="text" value={{baseinstalada.cantidad*baseinstalada.valorunitario}}></ion-input>
+                        </ion-item>
+                        <!--
+                        <button ion-button icon-left full (click)="guardarBase()">                            
+                            Guardar
+                        </button>
+                        -->
+                    </ion-list>
+                </ion-card-content>
+            </ion-card>
+
+            <ion-card>
+                <ion-card-header>
+                    Potencial Compra
+                </ion-card-header>
+                <ion-card-content>
+                    <ion-list>
+                        <ion-item>
+                            <ion-label>Estado:</ion-label>
+                            <ion-input type="text" [(ngModel)]="potencialcompra.estadoBasePotencial.nombre" name="EstadoBasePotencial"></ion-input>
+                        </ion-item>
+                        <ion-item>
+                            <ion-label>Cantidad:</ion-label>
+                            <ion-input type="number" [(ngModel)]="potencialcompra.cantidad"></ion-input>
+                        </ion-item>
+                        <ion-item>
+                            <ion-label>Valor Unitario:</ion-label>
+                            <ion-input type="text" [(ngModel)]="potencialcompra.valorunitario"></ion-input>
+                        </ion-item>
+                        <ion-item>
+                            <ion-label>Valor Total:</ion-label>
+                            <ion-input type="text" value={{potencialcompra.cantidad*potencialcompra.valorunitario}}></ion-input>
+                        </ion-item>
+                        <button ion-button icon-left full (click)="guardarBasePotencial()">                            
+                            Guardar
+                        </button>
+                    </ion-list>
+                </ion-card-content>
+            </ion-card>
+
+
+        </ion-card-content>
+
+    </ion-card>
+</ion-content>
+
+<!--
+ciudad:null
+contactos:null
+direccion:null
+email:null
+fax:"3464666"
+id:8
+latitud:"4.7933297999999995"
+licencia:null
+licenciaId:2
+longitud:"-75.7135113"
+nit:"900666539-0"
+nombre:"global"
+pais:null
+razonSocial:"Globa Travel Ideas S.A.S"
+sucursales:null
+telefono:"3464666"
+tipo:null
+url:null
+usuarioAsignadoId:null
+usuarioCreoId:null
+-->
